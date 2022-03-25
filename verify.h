@@ -9,7 +9,9 @@
 #include <QJsonValue>
 #include <QString>
 #include <iostream>
-
+#include <QVector>
+#include <random>
+#include <QPair>
 class Verify
 {
 public:
@@ -43,22 +45,33 @@ public:
     Verify();
     void jsonFromFile(QString way);
     void jsonAnalyze();
+    void initAnalyze();
     void controlAnalyze();
+    bool statementAnalyze(QJsonValue, QList<QPair<QString,bool>>&);
+    bool conditionAnalyze(QJsonObject);
+    auto findInMap(QString name);
 private:
+
+
     QMap<QString,statemens> STATEMENTS;
     QMap<QString,init_type> INIT_TYPE;
     QMap<QString,condition_type> CONDITION_TYPE;
 
+    QJsonObject control;
     QJsonArray array;
     QString functionName;
-    QJsonValue control;
     QJsonDocument doc;
     QJsonParseError err;
+    QJsonObject function;
 
-    int ix=0;
+
+
+    QMap<QString, init_type> init_map;
     QMap<QString,int> int_map;
     QMap<QString, double> double_map;
-    QMap<QString,int*> int_ptr_map;
+    QMap<QString,QVector<int> > int_ptr_map;
+    QMap<QString,QVector<double> > double_ptr_map;
+
 };
 
 #endif // VERIFY_H
