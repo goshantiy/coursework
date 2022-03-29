@@ -12,6 +12,8 @@
 #include <QVector>
 #include <random>
 #include <QPair>
+#include <mutex>
+#include <QtGlobal>
 class Verify
 {
 public:
@@ -45,17 +47,17 @@ public:
     Verify();
     void jsonFromFile(QString way);
     void jsonAnalyze();
+
+private:
     void initAnalyze();
-    void controlAnalyze();
+    void controlAnalyze(int);
     bool statementAnalyze(QJsonValue, QList<QPair<QString,bool>>&);
     bool conditionAnalyze(QJsonObject);
-    auto findInMap(QString name);
-private:
+    void collectConditions(QJsonObject);
 
-
-    QMap<QString,statemens> STATEMENTS;
-    QMap<QString,init_type> INIT_TYPE;
-    QMap<QString,condition_type> CONDITION_TYPE;
+    QHash<QString,statemens> STATEMENTS;
+    QHash<QString,init_type> INIT_TYPE;
+    QHash<QString,condition_type> CONDITION_TYPE;
 
     QJsonObject control;
     QJsonArray array;
@@ -65,12 +67,12 @@ private:
     QJsonObject function;
 
 
-
-    QMap<QString, init_type> init_map;
+    QHash<QString, int> condition_map;
+    QHash<QString, init_type> init_map;
     QMap<QString,int> int_map;
     QMap<QString, double> double_map;
-    QMap<QString,QVector<int> > int_ptr_map;
-    QMap<QString,QVector<double> > double_ptr_map;
+    QHash<QString,QVector<int> > int_ptr_map;
+    QHash<QString,QVector<double> > double_ptr_map;
 
 };
 

@@ -28,4 +28,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 DISTFILES += \
     test.json \
     test2.json \
+    test3.json \
     tree.json

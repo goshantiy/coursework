@@ -39,6 +39,7 @@ void Verify::jsonFromFile(QString way)
             jsonFile.close();
            }
 }
+
 void Verify::initAnalyze()
 {
 QJsonArray init_list=function.value("init_list").toArray();
@@ -105,8 +106,203 @@ for(int i=0;i<init_list.count();i++)
         }
 }
 }
-void Verify::controlAnalyze()
+
+void Verify::controlAnalyze(int strategy)
 {
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    QMapIterator<QString, int> iterator_int(int_map);
+    QMapIterator<QString, double> iterator_double(double_map);
+    switch (strategy)
+    {
+    case 0://все 0
+    {
+        qDebug()<<"All zeros:";
+        while(iterator_int.hasNext())
+        {
+                 iterator_int.next();
+                 int_map[iterator_int.key()]=0;
+        }
+        while(iterator_double.hasNext())
+        {
+                 iterator_double.next();
+                 double_map[iterator_double.key()]=0;
+        }
+        break;
+    }
+    case 1://все одинаковые положительные
+    {
+        qDebug()<<"All equal positive:";
+        while(iterator_int.hasNext())
+        {
+                 iterator_int.next();
+                 int_map[iterator_int.key()]=10;
+        }
+        while(iterator_double.hasNext())
+        {
+                 iterator_double.next();
+                 double_map[iterator_double.key()]=10;
+        }
+        break;
+    }
+    case 2://все одинаковые отрицательные
+    {
+        qDebug()<<"All equal negative:";
+        while(iterator_int.hasNext())
+        {
+                 iterator_int.next();
+                 int_map[iterator_int.key()]=-10;
+        }
+        while(iterator_double.hasNext())
+        {
+                 iterator_double.next();
+                 double_map[iterator_double.key()]=-10;
+        }
+        break;
+    }
+    case 3://по возрастанию положительные
+    {
+        qDebug()<<"In ascending order positive:";
+        int a = 1;
+        double b = 1;
+        while(iterator_int.hasNext())
+        {
+                 iterator_int.next();
+                 int_map[iterator_int.key()]=a;
+                 a++;
+        }
+        while(iterator_double.hasNext())
+        {
+                 iterator_double.next();
+                 double_map[iterator_double.key()]=b;
+                 b++;
+        }
+        break;
+    }
+    case 4://по возрастанию отрицательные
+    {
+         qDebug()<<"In ascending order negative:";
+        int a = INT_FAST16_MIN;
+        double b = INT_FAST16_MIN;
+        while(iterator_int.hasNext())
+        {
+                 iterator_int.next();
+                 int_map[iterator_int.key()]=a;
+                 a++;
+        }
+        while(iterator_double.hasNext())
+        {
+                 iterator_double.next();
+                 double_map[iterator_double.key()]=b;
+                 b++;
+        }
+        break;
+    }
+    case 5://по убыванию положительные
+    {
+        qDebug()<<"In descending order positive:";
+        int a = INT_FAST16_MAX;
+        double b = INT_FAST16_MAX;
+        while(iterator_int.hasNext())
+        {
+                 iterator_int.next();
+                 int_map[iterator_int.key()]=a;
+                 a--;
+        }
+        while(iterator_double.hasNext())
+        {
+                 iterator_double.next();
+                 double_map[iterator_double.key()]=b;
+                 b--;
+        }
+        break;
+    }
+    case 6://по убыванию отрицательные
+    {
+        qDebug()<<"In descending order negative:";
+        int a = -1;
+        double b=-1;
+        while(iterator_int.hasNext())
+        {
+                 iterator_int.next();
+                 int_map[iterator_int.key()]=a;
+                 a--;
+        }
+        while(iterator_double.hasNext())
+                {
+                         iterator_double.next();
+                         double_map[iterator_double.key()]=b;
+                         b--;
+                }
+        break;
+    }
+    case 7://рандомные от -100 до 100
+    {
+        qDebug()<<"Random from -100 to 100:";
+        std::uniform_int_distribution<> int_random(-100,100);
+        std::uniform_real_distribution<> double_random(-100,100);
+        while(iterator_int.hasNext())
+        {
+                 iterator_int.next();
+                 int_map[iterator_int.key()]=int_random(gen);
+        }
+        while(iterator_double.hasNext())
+                {
+                         iterator_double.next();
+                         double_map[iterator_double.key()]=double_random(gen);
+                }
+        break;
+    }
+    case 8://рандомные от 0 до 100
+    {
+        qDebug()<<"Random from 0 to 100:";
+        std::uniform_int_distribution<> int_random(0,100);
+        std::uniform_real_distribution<> double_random(0,100);
+        while(iterator_int.hasNext())
+        {
+                 iterator_int.next();
+                 int_map[iterator_int.key()]=int_random(gen);
+        }
+        while(iterator_double.hasNext())
+                {
+                         iterator_double.next();
+                         double_map[iterator_double.key()]=double_random(gen);
+                }
+        break;
+    }
+    case 9://рандомные от -100 до 0
+    {
+        qDebug()<<"Random from -100 to 0:";
+        std::uniform_int_distribution<> int_random(-100,0);
+        std::uniform_real_distribution<> double_random(-100,0);
+        while(iterator_int.hasNext())
+        {
+                 iterator_int.next();
+                 int_map[iterator_int.key()]=int_random(gen);
+        }
+        while(iterator_double.hasNext())
+                {
+                         iterator_double.next();
+                         double_map[iterator_double.key()]=double_random(gen);
+                }
+        break;
+    }
+    default:
+        qDebug()<<"Random from -100 to 100:";
+        std::uniform_int_distribution<> int_random(-100,100);
+        std::uniform_real_distribution<> double_random(-100,100);
+        while(iterator_int.hasNext())
+        {
+                 iterator_int.next();
+                 int_map[iterator_int.key()]=int_random(gen);
+        }
+        while(iterator_double.hasNext())
+                {
+                         iterator_double.next();
+                         double_map[iterator_double.key()]=double_random(gen);
+                }
+        break;
+    }
     QList<QPair<QString,bool>> res;
     while(!control.isEmpty())
     {
@@ -114,10 +310,12 @@ void Verify::controlAnalyze()
     control = control.value("right_child").toObject();
     else control = control.value("left_child").toObject();
     }
-    for (int i=0;i<res.count();i++){
+    for (int i=0;i<res.count();i++)
+    {
         QPair<QString, bool> pair = res.at(i);
         qDebug() << pair.first << " " << pair.second;
     }
+
 }
 
 bool Verify::conditionAnalyze(QJsonObject condition)//возвращает результат анализа условия
@@ -125,10 +323,6 @@ bool Verify::conditionAnalyze(QJsonObject condition)//возвращает ре�
     QString cond = condition.value("condition_type").toString();
     double left=0;
     double right=0;
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_int_distribution<> int_random(/*INT_FAST16_MIN, INT_FAST16_MAX*/-100,100);
-    std::uniform_real_distribution<> double_random(/*INT_FAST16_MIN, INT_FAST16_MAX*/-100,100);
     if(condition.value("condition_left").isObject())
     {
         left = conditionAnalyze(condition.value("condition_left").toObject());
@@ -143,40 +337,36 @@ bool Verify::conditionAnalyze(QJsonObject condition)//возвращает ре�
         {
         case init_type::INT:
         {
-            if(int_map[condition.value("condition_left").toString()]==NULL)
-            int_map[condition.value("condition_left").toString()]=int_random(gen);
             left=int_map.value(condition.value("condition_left").toString());
             break;
         }
         case init_type::DOUBLE:
         {
-            if(int_map[condition.value("condition_left").toString()]==NULL)
-            double_map[condition.value("condition_left").toString()]=double_random(gen);
             left=double_map.value(condition.value("condition_left").toString());
             break;
         }
         }
-    }else left=condition.value("condition_left").toDouble();
+    }
+    if(condition.value("condition_left").isDouble())
+        left=condition.value("condition_left").toDouble();
     if(condition.value("condition_right").isString())
     {
         switch(init_map.value(condition.value("condition_right").toString()))
         {
         case init_type::INT:
         {
-            if(int_map[condition.value("condition_right").toString()]==NULL)
-            int_map[condition.value("condition_right").toString()]=int_random(gen);
             right=int_map.value(condition.value("condition_right").toString());
             break;
         }
         case init_type::DOUBLE:
         {
-            if(int_map[condition.value("condition_right").toString()]==NULL)
-            double_map[condition.value("condition_right").toString()]=double_random(gen);
             right=double_map.value(condition.value("condition_right").toString());
             break;
         }
         }
-    }else right=condition.value("condition_right").toDouble();
+    }
+    if(condition.value("condition_right").isDouble())
+        right=condition.value("condition_right").toDouble();
     switch(CONDITION_TYPE.value(cond))
     {
     case  condition_type::EQUAL:
@@ -221,6 +411,7 @@ bool Verify::conditionAnalyze(QJsonObject condition)//возвращает ре�
     }
     }
 }
+
 bool Verify::statementAnalyze(QJsonValue statement, QList<QPair<QString,bool>>& result)
 {
     switch(STATEMENTS.value(statement.toString()))
@@ -237,6 +428,7 @@ bool Verify::statementAnalyze(QJsonValue statement, QList<QPair<QString,bool>>& 
         {
         if(conditionAnalyze(control))
         {
+            condition_map[control.value("condition").toString()]++;//логическое выражение true - фиксируем в map
             result.append(QPair<QString,bool>(control.value("condition").toString(),1));
             return true;
         }
@@ -249,23 +441,59 @@ bool Verify::statementAnalyze(QJsonValue statement, QList<QPair<QString,bool>>& 
         }
     }
 }
+
+void Verify::collectConditions(QJsonObject control)//собираем в map логические выражения
+{
+
+    QJsonObject getCond = control;
+    if(getCond.isEmpty()) return;
+        condition_map.insert(getCond.value("condition").toString(),0);
+        collectConditions(getCond.value("left_child").toObject());
+        condition_map.insert(getCond.value("condition").toString(),0);
+        collectConditions(getCond.value("right_child").toObject());
+}
+
 void Verify::jsonAnalyze()
 {
  if(err.errorString().toInt()==QJsonParseError::NoError)//если нормально прочитали документ
  {
     array=QJsonValue(doc.object().value("functions")).toArray();//достаем массив функций
-    for(int i=0;i<10;i++)
+
     if(!array.isEmpty())//проверяем на пустоту
     {
-        function=array.at(array.count()-1).toObject();//достаём последний элемент = функцию main
-        initAnalyze();
+        function=array.at(array.count()-1).toObject();
         control = function.value("control_structure").toObject();
-        controlAnalyze();
-        for(auto e:int_map.keys())
-            qDebug()<<e<<" = "<<int_map.value(e);
-        qDebug()<<"----";
-    }
+        collectConditions(control);
+        initAnalyze();
+        for(int i=0;i<10;i++)
+        {
+        control = function.value("control_structure").toObject();
+        controlAnalyze(i);
+
+            QMapIterator<QString, int> iterator_int(int_map);
+            while(iterator_int.hasNext())
+            {
+                     iterator_int.next();
+                     qDebug() << iterator_int.key()<<" = "<<iterator_int.value();
+            }
+            QMapIterator<QString, double> iterator_double(double_map);
+            while(iterator_double.hasNext())
+            {
+                     iterator_double.next();
+                     qDebug() << iterator_double.key()<<" = "<<iterator_double.value();
+            }
+            qDebug()<<"----";
+        }
+        qDebug()<<"Count all true conditions:";
+        QHashIterator<QString, int> iterator(condition_map);
+        while(iterator.hasNext())
+        {
+                 iterator.next();
+                 qDebug() << iterator.key()<<" = "<< iterator.value();
+        }
+
+     }
+  }
  else
      qDebug()<<"file parse error";
-}
 }
