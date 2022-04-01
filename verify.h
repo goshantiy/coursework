@@ -43,7 +43,14 @@ public:
         GREATER_EQUAL,
         LESS_EQUAL
     };
-
+    enum class operations
+    {
+        PLUS,
+        MINUS,
+        MULTIPLY,
+        DIVISION,
+        ASSIGMENT
+    };
     Verify();
     void jsonFromFile(QString way);
     void jsonAnalyze();
@@ -54,10 +61,12 @@ private:
     bool statementAnalyze(QJsonValue, QList<QPair<QString,bool>>&);
     bool conditionAnalyze(QJsonObject);
     void collectConditions(QJsonObject);
+    double ifAction(QJsonObject);
 
     QHash<QString,statemens> STATEMENTS;
     QHash<QString,init_type> INIT_TYPE;
     QHash<QString,condition_type> CONDITION_TYPE;
+    QHash<QString,operations> OPERATIONS;
 
     QJsonObject control;
     QJsonArray array;
@@ -71,7 +80,7 @@ private:
     QHash<QString, init_type> init_map;
     QMap<QString,int> int_map;
     QMap<QString, double> double_map;
-    QHash<QString,QVector<int> > int_ptr_map;
+    QHash<QString,QVector<int>> int_ptr_map;
     QHash<QString,QVector<double> > double_ptr_map;
 
 };

@@ -11,7 +11,8 @@ Verify doc;
 //doc.jsonFromFile("C:/Users/PC/Documents/coursework/tree.json");
 //doc.jsonFromFile("C:/Users/PC/Documents/coursework/test.json");
 //doc.jsonFromFile("C:/Users/PC/Documents/coursework/test2.json");
-doc.jsonFromFile("C:/Users/PC/Documents/coursework/test3.json");
+//doc.jsonFromFile("C:/Users/PC/Documents/coursework/test3.json");
+doc.jsonFromFile("C:/Users/PC/Documents/coursework/test4.json");
 doc.jsonAnalyze();
  return 0;
 }

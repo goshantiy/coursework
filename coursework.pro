@@ -29,4 +29,5 @@ DISTFILES += \
     test.json \
     test2.json \
     test3.json \
+    test4.json \
     tree.json
