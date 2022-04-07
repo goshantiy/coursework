@@ -43,10 +43,17 @@
                 "right_child":
                 {
             "statement":"IF",
-            "condition":"B<0",
-            "condition_type":"LESS",
-            "condition_left":"B",
+            "condition":"C==0",
+            "condition_type":"EQUAL",
+            "condition_left":"C",
             "condition_right":0,
+            "right_child":
+            {
+            "action":"A=B",
+            "operation":"ASSIGMENT",
+            "assigment_left":"A",
+            "assigment_right":"B"
+            },
             "left_child":
             {
                 "statement":"IF",

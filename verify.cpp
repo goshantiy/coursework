@@ -27,6 +27,7 @@ Verify::Verify()//конструктор по умолчанию. вносит �
     OPERATIONS.insert("MULTIPLY",operations::MULTIPLY);
     OPERATIONS.insert("DIVISION",operations::DIVISION);
     OPERATIONS.insert("ASSIGMENT",operations::ASSIGMENT);
+    OPERATIONS.insert("MOD",operations::MOD);
 }
 
 void Verify::jsonFromFile(QString way)//считыние файла из JSON документа, на вход подается путь.
@@ -433,6 +434,7 @@ bool Verify::conditionAnalyze(QJsonObject condition)//анализ услови�
         return left<=right;
         break;
     }
+    default:break;
     }
 }
 
@@ -557,6 +559,11 @@ else if(action.value("action_right").isDouble())//если правый опер
         return left/right;
 
         }
+        case operations::MOD:
+        {
+        return int(left)%int(right);
+
+        }
     }
 
 }
@@ -585,7 +592,7 @@ void Verify::jsonAnalyze()//анализ JSON документа
         control = function.value("control_structure").toObject();//приводим к обьекту
         collectConditions(control);//собираем логические условия
         initAnalyze();//инициализируем переменные
-        for(int i=0;i<15;i++)//в цикле осуществляем генерацию тестовых данных и анализ условий
+        for(int i=0;i<20;i++)//в цикле осуществляем генерацию тестовых данных и анализ условий
         {
         control = function.value("control_structure").toObject();
         controlAnalyze(i);

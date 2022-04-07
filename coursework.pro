@@ -10,15 +10,12 @@ CONFIG += c++11 console
 
 SOURCES += \
     main.cpp \
-    mainwindow.cpp \
     verify.cpp
 
 HEADERS += \
-    mainwindow.h \
     verify.h
 
-FORMS += \
-    mainwindow.ui
+FORMS +=
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -30,4 +27,7 @@ DISTFILES += \
     test2.json \
     test3.json \
     test4.json \
-    tree.json
+    test5.json \
+    test6.json \
+    test7.json \
+    test8.json

@@ -49,7 +49,8 @@ public:
         MINUS,
         MULTIPLY,
         DIVISION,
-        ASSIGMENT
+        ASSIGMENT,
+        MOD
     };
     Verify();
     void jsonFromFile(QString way);
@@ -80,7 +81,7 @@ private:
     QHash<QString, init_type> init_map;
     QMap<QString,int> int_map;
     QMap<QString, double> double_map;
-    QHash<QString,QVector<int>> int_ptr_map;
+    QHash<QString,QVector<int> > int_ptr_map;
     QHash<QString,QVector<double> > double_ptr_map;
 
 };
