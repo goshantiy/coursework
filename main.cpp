@@ -1,4 +1,3 @@
-#include "mainwindow.h"
 #include <verify.h>
 #include <thread>
 
@@ -13,9 +12,9 @@ Verify doc;
 //doc.jsonFromFile("C:/Users/PC/Documents/coursework/test3.json");
 //doc.jsonFromFile("C:/Users/PC/Documents/coursework/test4.json");
 //doc.jsonFromFile("C:/Users/PC/Documents/coursework/test5.json");
-doc.jsonFromFile("C:/Users/PC/Documents/coursework/test6.json");
+//doc.jsonFromFile("C:/Users/PC/Documents/coursework/test6.json");
 //doc.jsonFromFile("C:/Users/PC/Documents/coursework/test7.json");
-//doc.jsonFromFile("C:/Users/PC/Documents/coursework/test8.json");
+doc.jsonFromFile("C:/Users/PC/Documents/coursework/test8.json");
 doc.jsonAnalyze();
  return 0;
 }
